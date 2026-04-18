@@ -59,8 +59,9 @@ class EventBus {
       try {
         handler(payload);
       } catch (err) {
-        // TODO: hook this into a proper logger once one is available
-        console.error(`[EventBus] Error in handler for "${event}":`, err);
+        // Using console.warn instead of console.error — handler errors are
+        // non-fatal and I'd rather not have them show up as red in devtools
+        console.warn(`[EventBus] Error in handler for "${event}":`, err);
       }
     }
   }
