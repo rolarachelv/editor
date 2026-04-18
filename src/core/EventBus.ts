@@ -47,6 +47,8 @@ class EventBus {
 
   /**
    * Emit an event, invoking all registered handlers synchronously.
+   * Note: errors in individual handlers are caught and logged so they
+   * don't prevent other handlers from running.
    */
   emit<T = unknown>(event: string, payload: T): void {
     const handlers = this.listeners.get(event);
@@ -57,6 +59,7 @@ class EventBus {
       try {
         handler(payload);
       } catch (err) {
+        // TODO: hook this into a proper logger once one is available
         console.error(`[EventBus] Error in handler for "${event}":`, err);
       }
     }
@@ -76,6 +79,11 @@ class EventBus {
   /** Returns the number of active listeners for a given event. */
   listenerCount(event: string): number {
     return this.listeners.get(event)?.size ?? 0;
+  }
+
+  /** Returns all event names that currently have at least one listener. */
+  activeEvents(): string[] {
+    return Array.from(this.listeners.keys());
   }
 }
 
