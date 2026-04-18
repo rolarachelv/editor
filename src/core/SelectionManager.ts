@@ -75,6 +75,7 @@ export class SelectionManager {
 
   /**
    * Get an array of all currently selected node IDs.
+   * Note: order reflects insertion order, which matches selection order.
    */
   getSelectedIds(): string[] {
     return Array.from(this.selectedIds);
@@ -92,6 +93,13 @@ export class SelectionManager {
    */
   hasMultiSelection(): boolean {
     return this.selectedIds.size > 1;
+  }
+
+  /**
+   * Returns the number of currently selected nodes.
+   */
+  getSelectionCount(): number {
+    return this.selectedIds.size;
   }
 
   private emitChange(): void {
