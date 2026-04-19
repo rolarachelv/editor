@@ -59,9 +59,9 @@ class EventBus {
       try {
         handler(payload);
       } catch (err) {
-        // Using console.warn instead of console.error — handler errors are
-        // non-fatal and I'd rather not have them show up as red in devtools
-        console.warn(`[EventBus] Error in handler for "${event}":`, err);
+        // Changed to console.error — I want handler errors to be clearly visible
+        // during development so they don't get missed. Can revisit before shipping.
+        console.error(`[EventBus] Error in handler for "${event}":`, err);
       }
     }
   }
