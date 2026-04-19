@@ -31,8 +31,10 @@ export class SelectionManager {
 
   /**
    * Remove a node from the current selection.
+   * No-op if the node is not currently selected.
    */
   removeFromSelection(id: string): void {
+    if (!this.selectedIds.has(id)) return;
     this.selectedIds.delete(id);
     this.emitChange();
   }
