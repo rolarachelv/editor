@@ -102,6 +102,14 @@ export class SelectionManager {
     return this.selectedIds.size;
   }
 
+  /**
+   * Returns true if nothing is selected.
+   * Handy shorthand to avoid checking getSelectionCount() === 0 everywhere.
+   */
+  isEmpty(): boolean {
+    return this.selectedIds.size === 0;
+  }
+
   private emitChange(): void {
     this.eventBus.emit('selection:changed', {
       selectedIds: this.getSelectedIds(),
